@@ -4,7 +4,8 @@
 *salam
 
 
-```cpp
+_this function to check on the integer numbers_
+```
 void print(void input)
 {
 	int temp = (int)input;
