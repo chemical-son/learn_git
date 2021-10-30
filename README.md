@@ -24,4 +24,4 @@ void print(void input)
 - [ ] this is a complete item
 - [ ] this is an incomplete item
 
-__we will continue tomorow
+__we will continue tomorow__
