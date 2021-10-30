@@ -1,3 +1,2 @@
 # learn_git
-## helo from wep
-just test
+allahom yser lna alhal
