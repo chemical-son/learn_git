@@ -9,10 +9,10 @@ void print(void input)
 {
 	int temp = (int)input;
 	if(temp > 0)
-		return 1;
+		cout << "+ve\n";
 	else if(temp < 0)
-		return -1;
+		cout << "-ve\n";
 	else
-		return 0;
+		cout << "zero\n";
 }
 ```
