@@ -1,8 +1,8 @@
 # learn_git
 
-######allahom yser lna alhal
-######ya allh
-######salam
+###### allahom yser lna alhal
+###### ya allh
+###### salam
 
 
 _this function to check on the integer numbers_
