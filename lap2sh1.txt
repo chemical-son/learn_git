@@ -1,0 +1,98 @@
+#include<iostream>
+#include<pthread.h>
+#include<vector>
+
+using namespace std;
+
+int v1[12] = { 1,1,1,1,1,1,1,1,1,1,1,1 };
+int v2[12] = { 2,2,2,2,2,2,2,2,2,2,2,2 };
+vector<int>result;
+
+struct start_and_end_of_calculation {
+private:
+	int start;
+	int end;
+public:
+	int getStart() {
+		return start;
+	}
+	int getEnd() {
+		return end;
+	}
+
+	void setStart(int s) {
+		if (s > -1)
+			start = s;
+		else
+			start = 0;
+	}
+	void setEnd(int e) {
+		if (e > -1)
+			end = e;
+		else
+			end = 1;
+	}
+	//constructor to intitialize data
+	start_and_end_of_calculation(int s, int e) {
+		if (s > -1)
+			start = s;
+		else
+			start = 0;
+
+		if (e > -1)
+			end = e;
+		else
+			end = 1;
+	}
+
+};
+void * task(void * data) {
+	start_and_end_of_calculation *sAe = (start_and_end_of_calculation*)data;
+	
+	for (int i = sAe->getStart(); i < sAe->getEnd(); i++) {
+		result.push_back(v1[i] * v2[i]);
+	}
+	return NULL;
+}
+
+//solving as sequintial
+int solve_sequential() {
+	int localResult = 0;
+	for (int i = 0; i < 12; i++) {
+		localResult += v1[i] * v2[i];
+	}
+	return localResult;
+}
+
+//solve by multi threading concept
+int solve_parall() {
+
+	pthread_t th[4];
+	int localResult = 0;
+	int step = sizeof(v1)/4;
+
+	start_and_end_of_calculation * args;
+	
+
+	for (int i = 0; i < 4; i++) {
+
+		args = new start_and_end_of_calculation(i * step, (i * step) + step);
+		pthread_create(&th[i], NULL, task, (void*)args);
+	}
+	
+	for (int i = 0; i < 4; i++) {
+		pthread_join(th[i], NULL);
+	}
+
+	for (int i = 0; i < 4; i++) {
+		localResult += result[i];
+	}
+	return localResult;
+}
+
+void main() {
+	//cout << "result with seqwintial: " << solve_sequential() << endl;
+	cout << "result with parall: " << solve_parall() << endl;
+	system ("pause");
+	pthread_exit(NULL);
+}
